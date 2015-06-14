@@ -1,0 +1,32 @@
+<ion-view view-title="Home">
+  <ion-content delegate-handle="collection-repeat-wrap" class="has-header">
+    <div class="list card header-card">
+      <div class="item item-divider item-positive">
+        Welcome
+      </div>
+
+      <div class="item">
+        <h1>Home</h1>
+
+        
+      </div>
+      <div class="item item-divider item-positive"></div>
+    </div>
+
+    <div class="padding">
+        <button class="button button-block button-positive" ng-click="on.getParseUser()">
+        Get Parse User
+        </button>
+
+        <button class="button button-block button-positive" ng-click="on.getFbProfile()">
+        Get <i class="icon ion-social-facebook">acebook</i> Profile
+        </button>
+    </div>
+
+    <small class="padding">
+      <pre ng-bind="watch.console">
+      </pre>
+    </small>
+
+  </ion-content>
+</ion-view>

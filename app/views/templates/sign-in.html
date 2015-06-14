@@ -1,0 +1,38 @@
+<!-- sign-in.html -->
+		<div class="list card header-card">
+      <div class="item item-divider item-energized">
+        <span class="cursor-default">
+          <i class="icon ion-person icon-large"></i>&nbsp; Sign In
+        </span>
+        <span class="pull-right cursor-pointer"
+        ui-sref="app.profile"
+        > Profile &nbsp;<i class="icon ion-person icon-large"></i>
+        </span>
+      </div>
+
+      <div ng-show="appProfile.errorMessage">
+        <div  class="error-message padding">{{appProfile.errorMessage}}</div>
+      </div>
+
+      <div><label class="item item-input item-icon-right">
+        <span class="input-label">Username</span>
+        <input type="text" ng-model="appProfile.userModel().username" placeholder="CleverName" tabindex="1" >
+      </label></div>
+
+      <div><label class="item item-input item-icon-right">
+        <span class="input-label">Password</span>
+        <input type="password" ng-model="appProfile.userModel().password" placeholder="Required" tabindex="2" >
+      </label></div>
+
+      <div class=" padding">
+        <input type="submit" class="button button-block button-energized padding-horizontal"  tabindex="3"
+          value="Submit"
+          ng-class="appProfile.ngClassSignin()"
+          ng-click="on.signIn($event)"
+          >
+        </input>
+      </div>
+        
+      <div class="item item-divider item-energized">
+      </div> 
+    </div>

@@ -1,0 +1,37 @@
+<!-- parse-profile.html -->
+    <div class="list card header-card" >
+      <div class="item item-divider item-energized">
+        <span class="cursor-default">
+          <i class="icon ion-person icon-large"></i>&nbsp; {{appProfile.userModel().username}} 
+        </span>
+        <span class="pull-right cursor-pointer"
+        ng-click="on.signOut($event)"
+        > Sign Out <i class="icon ion-log-in icon-large"></i>
+        </span>
+      </div>
+
+      <form name="form" class="css-form" novalidate>
+        <div ng-include src="'/partials/templates/anonymous-signup-fields.html'"></div>
+
+        <!-- // anonymous only -->
+        <div><div class="item item-text-wrap item-icon-left padding">
+          <button class="button button-block button-assertive" 
+          ng-if="!appProfile.isAnonymous()"
+          ng-show="!appProfile.email.dirty() && !appProfile.userModel().emailVerified"
+          ui-sref="app.profile">
+          Verify Email
+          </button>
+
+          <input type="submit" class="button button-block button-energized"  tabindex="10"
+            value="Submit"
+            ng-class="appProfile.ngClassSubmit()"
+            ng-click="on.submit($event)"
+            >
+          </input>  
+        </div></div>
+      </form> 
+
+      <div class="item item-divider item-energized">
+      </div>  
+
+    </div>

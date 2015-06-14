@@ -1,0 +1,23 @@
+<!-- views/template/notify.html -->
+<div id="notify" class="notify overlay padding-horizontal">
+  <alert ng-repeat="alert in notify.alert()" class="alert padding"
+  ng-class="{
+    'positive': alert.type=='info',
+    'energized': alert.type=='warn',
+    'assertive': alert.type=='error'
+  }"
+  type="alert.type" 
+  ng-click="notify.close(alert.key)"
+  >
+    <div ng-bind-html="alert.msg" class="text-center"></div>
+  </alert>
+</div>
+<div id="message" class="notify inline padding-horizontal">
+  <alert ng-repeat="alert in notify.message()" class="alert padding"
+  type="alert.type" 
+  ng-click="notify.close(alert.key)"
+  >
+    <div ng-if="!alert.template" ng-bind-html="alert.msg"></div>
+    <ng-include ng-if="alert.template" src="alert.template || null"></ng-include>
+  </alert>
+</div>   

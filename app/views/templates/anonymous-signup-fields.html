@@ -1,0 +1,71 @@
+<!-- anonymous-signup-fields -->
+<div ng-show="appProfile.errorMessage">
+  <div  class="error-message padding">{{appProfile.errorMessage}}</div>
+</div>
+
+<label class="item item-input item-icon-right">
+  <span class="input-label">Username</span>
+  <input type="text" ng-model="appProfile.userModel().username" placeholder="CleverName" tabindex="1">
+  <i class="icon"  
+  ng-class="appProfile.username.ngClassValidIcon()"></i>
+</label>
+
+  <!-- // anonymous only -->
+<div ng-if="appProfile.isAnonymous()">
+  <label class="item item-input item-icon-right">
+    <span class="input-label">Password</span>
+    <input type="password" ng-model="appProfile.userModel().password" placeholder="Required" tabindex="2">
+    <i class="icon"
+    ng-class="appProfile.password.ngClassValidIcon()"></i>
+  </label>
+</div>
+
+  <!-- // named user only -->
+<div ng-if="!appProfile.isAnonymous()">
+  <label class="item item-input item-icon-right">
+    <span class="input-label">Password</span>
+    <input type="password" ng-model="appProfile.userModel().password" placeholder="Required"  tabindex="3"
+    ng-click="appProfile.password.edit($event)"
+    ng-readonly="!appProfile.password.dirty()"
+    >
+    <i class="icon" tabindex=-1 ng-show="!appProfile.password.dirty()">
+      <button class="button button-small button-assertive" 
+      ng-click="appProfile.password.edit($event)">
+        <i class="icon ion-edit"></i>
+      </button>
+    </i>
+    <i class="icon"  
+    ng-show="appProfile.password.dirty()"
+    ng-class="appProfile.password.ngClassValidIcon()"></i>
+  </label>
+</div>
+
+<div ng-if="appProfile.isAnonymous() || appProfile.password.dirty()">
+  <label class="item item-input item-icon-right">
+    <span class="input-label">Password</span>
+    <input type="password" placeholder="(again)"  tabindex="4"
+    ng-model="appProfile.password.passwordAgainModel" >
+    <i class="icon"  
+    ng-class="appProfile.password.ngClassConfirmedIcon()"></i>
+  </label>
+</div>
+
+<div>
+  <label class="item item-input item-icon-right" >
+    <span class="input-label">Email</span>
+    <input type="email" ng-model="appProfile.userModel().email" placeholder="me@email.com"   tabindex="5" > 
+    <i class="icon"  ng-class="appProfile.email.ngClassEmailIcon()"></i>
+  </label>
+</div>
+
+
+<!-- // named user only -->
+<div ng-if="!appProfile.isAnonymous() && appProfile.dirty()">
+  <label class="item item-input item-icon-right">
+    <span class="input-label">Confirm ID</span>
+    <input type="password" placeholder="Your CURRENT Pwd"  tabindex="6"
+    ng-model="appProfile.userModel().currentPassword" >
+    <i class="icon"  
+    ng-class="appProfile.password.ngClassValidIcon('currentPassword')"></i>
+  </label>
+</div>

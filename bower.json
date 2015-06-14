@@ -1,0 +1,16 @@
+{
+  "name": "ionic-parse-facebook-scaffold",
+  "private": "false",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.0.0",
+    "ionic-service-core": "~0.1.5",
+    "ionic-service-deploy": "~0.0.6",
+    "openfb": "~0.5.0"
+  },
+  "dependencies": {
+    "ngCordova": "~0.1.14-alpha",
+    "ngstorage": "~0.3.0",
+    "parse-js-sdk": "~1.4.0",
+    "lodash": "~3.6.0"
+  }
+}

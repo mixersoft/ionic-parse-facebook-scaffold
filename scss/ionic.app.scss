@@ -1,0 +1,144 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+
+// Animation Icons
+// --------------------------
+
+.ion-spin {
+  -webkit-animation: spin 1s infinite linear;
+  -moz-animation: spin 1s infinite linear;
+  -o-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+}
+
+@-moz-keyframes spin {
+  0% { -moz-transform: rotate(0deg); }
+  100% { -moz-transform: rotate(359deg); }
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(359deg); }
+}
+@-o-keyframes spin {
+  0% { -o-transform: rotate(0deg); }
+  100% { -o-transform: rotate(359deg); }
+}
+@-ms-keyframes spin {
+  0% { -ms-transform: rotate(0deg); }
+  100% { -ms-transform: rotate(359deg); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(359deg); }
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+.pull-right {
+  float: right;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.badge.badge-large {
+  font-size: 32px;
+  line-height: 1.2;
+  border-radius: 12px;
+}
+
+a.no-decoration {
+  text-decoration: none !important;
+  color:inherit;
+  &:hover, &:visited {
+    text-decoration: none !important;
+  }
+}
+
+.menu-left {
+  ion-list ion-item > *  {
+    @extend .cursor-pointer;
+  }
+}
+
+.header-card .item.item-divider .icon-large {
+  font-size: 1.8em;
+  height: 16px;
+  vertical-align: text-top;
+  margin-top: -4px;
+}
+
+
+ion-content.gallery {
+  background-color: $dark;
+}
+
+.card-wrap {
+  .card {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    .card-footer .tab-item {
+      font-size: 1.5em;
+    }
+  }
+
+
+  .card {
+    .photo-wrap {
+      position: relative;
+      background-color: rgba(0,0,0,0.7);
+      img.loading {
+        visibility: hidden;
+      }
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .card .photo-wrap{
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -16px 0 0 -18px;
+      font-size: 36px;
+    }
+    .spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -18px 0 0 -18px;
+      svg {
+         width:36px;
+         height:36px;
+      }
+    }
+  }
+
+}
+

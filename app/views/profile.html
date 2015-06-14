@@ -1,0 +1,117 @@
+<ion-view view-title="Profile" id="profile">
+  <ion-content id="settings" class="has-header" ng-switch="watch.viewName()">
+
+<div ng-switch-when="sign-in"> 
+  <div class="padding-top padding-horizontal" 
+  ng-hide="watch.fbProfile">
+      <button class="button button-block button-positive" ng-click="on.fbConnectP()">
+      Connect with <i class="icon ion-social-facebook">acebook</i>
+      </button>
+  </div>
+  <div class="padding-top padding-horizontal"
+  ng-show="watch.authData && watch.fbProfile">
+    <small>
+      You are currently connected from {{watch.authData.authProvider}}.
+    </small>
+  </div>
+  <div ng-include="'/partials/templates/sign-in.html'"></div> 
+</div>  
+<div ng-switch-when="anonymous"> 
+    <div ng-include="'/partials/templates/anonymous-signup.html'"></div> 
+
+    <div class="padding-top padding-horizontal">
+        <button class="button button-block button-positive" ng-click="on.fbConnectP()">
+        Connect with <i class="icon ion-social-facebook">acebook</i>
+        </button>
+    </div>
+
+    <!-- header card : guest -->
+    <div class="list card header-card">
+      <div class="item item-divider item-energized">
+        <span class="cursor-default">
+          <i class="icon ion-person icon-large"></i>&nbsp; Sign Up
+        </span>
+        <span class="pull-right cursor-pointer"
+        ng-click="on.signOut($event)"
+        > {{ watch.isNullUser() ? 'Sign In' : 'Sign Out'}} &nbsp;<i class="icon ion-log-in icon-large"></i>
+        </span>
+      </div>
+
+      <form name="form" class="css-form" novalidate>
+        <div ng-include src="'/partials/templates/anonymous-signup-fields.html'"></div>
+
+        
+        <div class="padding">
+          <input type="submit" class="button button-block button-energized" 
+            value="Submit"
+            ng-class="appProfile.ngClassSubmit()"
+            ng-click="on.submit($event)"
+            >
+          </input>
+        </div>  
+      </form> 
+
+      <div class="item item-divider item-energized">
+      </div>          
+    </div>
+
+</div>    
+
+<div ng-switch-when="parse">
+    <div class="padding">
+      <p class="text-center">
+      <span class="username badge badge-positive padding capitalize">
+        <i class="icon ion-person"></i>&nbsp; {{appProfile.userModel().username}}
+      </span>
+      </p>
+      <p>
+      Hello <strong class="capitalize">{{appProfile.userModel().username}}</strong>. 
+      You can manage your account information below.
+      </p>
+      <div ng-show="watch.authData">
+        <button class="button button-block button-positive" ng-click="on.fbConnectP()">
+          Connect with <i class="icon ion-social-facebook">acebook</i>
+        </button>
+        <small >
+          This account was recently disconnected from {{watch.authData.authProvider}}.
+        </small>
+      </div>
+    </div>
+    
+    <div ng-include="'/partials/templates/parse-profile.html'"></div>
+
+    <div class="padding" ng-hide="watch.authData">
+        <button class="button button-block button-positive" ng-click="on.fbConnectP()">
+          Connect with <i class="icon ion-social-facebook">acebook</i>
+        </button>
+    </div>
+    <div ng-include="'/partials/templates/fb-profile.html'" ng-show="watch.fbProfile"></div>
+</div>
+
+<div ng-switch-when="facebook">
+    <div class="padding">
+      <p class="text-center">
+        <span class="username badge badge-positive padding capitalize">
+        <i class="icon ion-person"></i> &nbsp; {{watch.fbProfile.name}}
+        </span></p>
+      <p>Hello <strong class="capitalize">{{watch.fbProfile.first_name}}</strong>. You are currently connected through your Facebook account.</p>
+      <div class="padding-top padding-horizontal" 
+      ng-hide="watch.isConnectedUser()">
+          <button class="button button-block button-positive" ng-click="on.fbConnectP()">
+          Renew <i class="icon ion-social-facebook">acebook</i> Session
+          </button>
+          <small class="assertive" ng-hide="">Your FBConnect session has expired. You'll need to renew before accessing Facebook.</small>
+      </div>
+    </div>
+    
+    <div ng-include="'/partials/templates/fb-profile.html'"></div>
+</div>
+
+
+
+  </ion-content>
+</ion-view>
+
+
+
+

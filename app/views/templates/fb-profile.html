@@ -1,0 +1,27 @@
+<!-- fb-profile.html -->
+<!-- header card : user with facebook profile -->
+<div class="list card header-card" >
+  <div class="item item-divider item-positive">
+    <span class="cursor-default">
+      <i class="icon ion-person icon-large"></i>&nbsp;via Facebook 
+    </span>
+    <span class="pull-right cursor-pointer"
+        ng-click="on.fbDisconnectP($event)"
+        > Disconnect <i class="icon ion-log-in icon-large"></i>
+    </span>
+  </div>
+
+  <div class="item item-avatar">
+    <img ng-src="{{watch.fbProfile.picture.data.url}}">
+    <h2>{{watch.fbProfile.name}}</h2>
+    <p>{{watch.fbProfile.email}}</p>
+    <p location-id="{{watch.fbProfile.location.id}}">{{watch.fbProfile.location.name}}</p>
+  </div>
+<!--   <div><p class="item">
+    <small class="dark">Connect token expires {{watch.authData.expirationDate | timeago }}</small>
+  </p></div> 
+-->
+  <div class="item item-divider item-positive">
+  </div>  
+
+</div>
