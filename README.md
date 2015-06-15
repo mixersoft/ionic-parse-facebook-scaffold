@@ -37,6 +37,7 @@ gulp
 ```
 
 ## Upload app to ionic.io
+Be sure to reset app_id="" in ionic.project to upload a *NEW* App
 ```
 ionic upload 
 ```
