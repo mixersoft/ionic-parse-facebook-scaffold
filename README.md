@@ -53,8 +53,8 @@ remember to run `gulp coffee` for javascript
 follow instructions here: https://github.com/ccoenraets/OpenFB
 
 ## Configure Push Notifications
-
-
+for Parse.com Push Notifications, see: https://parse.com/tutorials/ios-push-notifications
+*Make sure your BundleID matches the widget id in `config.xml`*
 
 ## Build and deploy for device
 ```

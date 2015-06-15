@@ -164,7 +164,7 @@ angular
       parsePush.initialize( platform )
       exportDebug['$platform'] = $rootScope['device'] = deviceReady.device(platform)
       console.log 'localStorage $platform=' + JSON.stringify exportDebug['$platform']
-    else       
+    else  
       # platform
       deviceReady.waitP().then (platform)->
           exportDebug['$platform'] = $rootScope['device'] = $rootScope.localStorage['device'] = platform
@@ -183,11 +183,6 @@ angular
         # update fbProfile
         return appFacebook.getMeP().then (resp)->
           return 'done'
-
-    deviceReady.waitP().then ()->
-      # register installation for Parse Push Notification
-      parsePush.initialize($localStorage).registerP()
-      return
 
 
 

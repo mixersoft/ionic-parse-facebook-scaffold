@@ -22,23 +22,30 @@ angular
   '$rootScope', '$location', '$q', '$log', '$http'
   '$cordovaPush', '$cordovaMedia'
   'notifyService'
-  'auth.KEYS', 'deviceReady'
-  
-  ($rootScope, $location, $q, $log, $http, $cordovaPush, $cordovaMedia, notify, KEYS, deviceReady)->
+  'auth.KEYS', 'deviceReady', 'exportDebug'
+  ($rootScope, $location, $q, $log, $http, $cordovaPush, $cordovaMedia, notify, KEYS, deviceReady, exportDebug)->
 
-    notifyPayloads = {
-      'example':
-        aps:
-          alert: 
-            title: 'Hello There'
-            body: "This is a push notification from Parse!"
-          badge: 1 
-          sound: 'default'
-          'content-available': false
-        target: 
-          state: 'app.home'
-          params: null
-       
+    # note: serialized during self.initialize()
+    notificationTemplate = {
+      conditions:
+        'channels': # postData.where
+          'channels': 
+            '$in': ['channel1', 'channel2']
+        'ownerId':
+          'ownerId': null
+      payload:
+        'example': # postData.data
+          aps:
+            alert: 
+              title: 'Hello There'
+              body: "This is a push notification from Parse!"
+            badge: 1 
+            sound: 'default'
+            'content-available': false
+          target: 
+            state: 'app.home'
+            params: null
+         
     }
 
 
@@ -67,13 +74,6 @@ angular
         _localStorageDevice = $localStorageDevice
         self.isReady = true
         console.log "pushNotificationPluginSvc initialized", $localStorageDevice
-
-        # debug only
-        self['messages'] = {}
-        _.each _.keys( notifyPayloads ), (key)->
-          self['messages'][key] = JSON.stringify notifyPayloads[key]
-          return
-
         return self
 
       registerP: ()->
@@ -209,9 +209,13 @@ angular
           }
 
           if $rootScope.parseUser?
-            postData["owner"] = $rootScope.parseUser
+            postData["owner"] = {
+              __type: 'Pointer',
+              className: '_User',
+              objectId: $rootScope.parseUser.id
+            }
             postData["ownerId"] = $rootScope.parseUser.id
-            postData["username"] = $rootScope.parseUser.get('username')
+            postData["username"] = $rootScope.parseUser.get('name') || $rootScope.parseUser.get('username')
             postData["active"] = true # active installation, for multiple users on same device
             # TODO: beforeSave set active=false for installationId==installationId
           else 
@@ -232,69 +236,44 @@ angular
               "Content-Type": "application/json"
           }
           return $http(xhrOptions)
-        .then (data, status)->
-            _localStorageDevice['pushInstall'] = _.pick data, ['objectId', 'deviceType', 'deviceId', 'installationId', 'ownerId', 'username']
+        .then (resp, status)->
+            _localStorageDevice['pushInstall'] = _.pick resp.data, ['objectId', 'deviceType', 'deviceId', 'installationId', 'ownerId', 'username']
             console.log "Parse installation saved, data=" + JSON.stringify _localStorageDevice['pushInstall']
-            return data
-          , (data, status)->
-            console.log "Error: saving Parse installation" + JSON.stringify([data, status]) 
-            return $q.reject("pushNotify register error saving to Parse")
+            return resp.data
+          , (err)->
+            console.log "Error: saving Parse installation" + JSON.stringify(err) 
+            return $q.reject("pushNotify registerP(), error saving to Parse")
 
+      sayHelloP: (ownerId)->
+        if `ownerId==null`
+          return $q.reject('No Parse.User specified')
+        options = {
+          method: 'POST'
+          url: "https://api.parse.com/1/push"
+          headers: 
+            'X-Parse-Application-Id': KEYS.parse.APP_ID
+            'X-Parse-REST-API-Key': KEYS.parse.REST_API_KEY
+            'Content-Type': 'application/json'
+          data: ''
+        }
+        postData = {   # should be JSON.stringify()
+          where: notificationTemplate.conditions['ownerId']  # should be JSON.stringify()
+          data: notificationTemplate.payload['example']  
+        }
+        postData.where.ownerId = ownerId
+        console.log "options", options
+        options.data = postData
+        return $http( options ).then (resp)->
+          if resp.data?.result == true
+            return postData
+          return resp.data
 
     }
+
+    exportDebug['parsePush'] = self
+
     return self
 
 
   ])
 
-
-
-###
-  # push notification
-    curl -X POST \
-    -H "X-Parse-Application-Id: cS8RqblszHpy6GJLAuqbyQF7Lya0UIsbcxO8yKrI" \
-    -H "X-Parse-REST-API-Key: 3n5AwFGDO1n0YLEa1zLQfHwrFGpTnQUSZoRrFoD9" \
-    -H "Content-Type: application/json" \
-    -d '{
-      "channels":[
-        "Curator"
-      ],
-      "data": {
-        "aps" : {
-          "alert": { 
-            "title": "Watch out!", 
-            "body": "A new Workorder was just created" 
-          }, 
-          "badge": 1, 
-          "sound": "default", 
-          "content-available": 1 
-        },
-        "target": "app.workorders.open" 
-      }
-    }' \
-    https://api.parse.com/1/push;
-
-  curl -X POST \
-  -H "X-Parse-Application-Id: cS8RqblszHpy6GJLAuqbyQF7Lya0UIsbcxO8yKrI" \
-  -H "X-Parse-REST-API-Key: 3n5AwFGDO1n0YLEa1zLQfHwrFGpTnQUSZoRrFoD9" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "where": {
-      "ownerId": "Y72OwE1xzA"
-    },
-    "data": {
-      "aps" : {
-        "alert": { 
-          "title": "Watch out!", 
-          "body": "A new Workorder was just created" 
-        }, 
-        "badge": 1, 
-        "sound": "default", 
-        "content-available": 1 
-      },
-      "target": "app.workorders.open" 
-    }
-  }' \
-  https://api.parse.com/1/push;
-
-###

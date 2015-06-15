@@ -1,6 +1,6 @@
 {
   "name": "ionic-parse-facebook-scaffold",
-  "app_id": "",
+  "app_id": "ee2419a3",
   "gulpStartupTasks": [
     "sass",
     "watch"

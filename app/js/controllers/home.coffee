@@ -18,7 +18,8 @@ angular.module('starter')
   '$ionicScrollDelegate'
   'deviceReady'
   'appFacebook'
-  ($scope, $rootScope, $timeout, $ionicPlatform, $ionicScrollDelegate, deviceReady, appFacebook)->
+  'parsePush'
+  ($scope, $rootScope, $timeout, $ionicPlatform, $ionicScrollDelegate, deviceReady, appFacebook, parsePush)->
 
     $scope.deviceReady.waitP().then (platform)->
       $scope.device = platform # deviceReady.device()
@@ -31,6 +32,9 @@ angular.module('starter')
     $scope.on = {
       getParseUser: ()->
         $scope.watch.console = 'loading Parse.User...'
+        if `Parse.User.current()==null`
+          $scope.watch.console = "Parse.User.current() == null"
+          return
         return new Parse.Query(Parse.User).get($rootScope.parseUser.id)
         .then (user)->
             output = {
@@ -55,7 +59,26 @@ angular.module('starter')
             return
 
       sendParsePush: ()->
-        $scope.watch.console = 'Parse Push Notification not yet configured'
+        if `Parse.User.current()==null`
+          $scope.watch.console = "Parse.User.current() == null"
+          return
+        $scope.watch.console = 'Sending in 2 secs - send App to background...'
+        $timeout ()->
+            $scope.watch.console = "SENDING..."
+            parsePush.sayHelloP($rootScope.parseUser.id)
+            .then (resp)->
+                msg = {
+                  result: 'SENT'
+                  notification: resp
+                }
+                $scope.watch.console = JSON.stringify msg, null, 2
+                return 
+              , (err)->
+                $scope.watch.console = JSON.stringify err, null, 2
+                return
+          , 2000
+
+
 
       sendIonicPush: ()->
         $scope.watch.console = 'ionic Push Notification not yet configured'

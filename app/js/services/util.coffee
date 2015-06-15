@@ -57,7 +57,7 @@ angular.module 'snappi.util', [
             isDevice: ionic.Platform.isWebView()
             isBrowser: ionic.Platform.isWebView() == false
           }
-          platform['id'] == platform['uuid']
+          platform['id'] = platform['uuid']
           platform = self.device(platform)
           return dfd.resolve( platform )
         return _promise = dfd.promise

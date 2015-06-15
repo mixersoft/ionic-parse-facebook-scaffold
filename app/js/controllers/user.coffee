@@ -227,6 +227,12 @@ angular.module('starter')
       toggleShowAdvanced: ()->
         $scope.watch.showAdvanced = !$scope.watch.showAdvanced
 
+      useAsGuest: ()->
+        return if $rootScope.parseUser != null
+        return appParse.checkSessionUserP(null, 'create').then ()->
+          $rootScope.$state.reload()
+
+
       signOut : (ev)->
         ev.preventDefault() 
 

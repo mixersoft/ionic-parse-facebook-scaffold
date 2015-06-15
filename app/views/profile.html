@@ -23,6 +23,13 @@
         <button class="button button-block button-positive" ng-click="on.fbConnectP()">
         Connect with <i class="icon ion-social-facebook">acebook</i>
         </button>
+
+        <button class="button button-block button-balanced" 
+        ng-show="watch.isNullUser()"
+        ng-click="on.useAsGuest()">
+          Continue as Anonymous
+        </button>
+
     </div>
 
     <!-- header card : guest -->
