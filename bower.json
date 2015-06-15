@@ -5,6 +5,7 @@
     "ionic": "driftyco/ionic-bower#1.0.0",
     "ionic-service-core": "~0.1.5",
     "ionic-service-deploy": "~0.0.6",
+    "ionic-service-push": "~0.1.7",
     "openfb": "~0.5.0"
   },
   "dependencies": {

@@ -12,7 +12,6 @@ angular
   'ngCordova',
   'ngStorage'
   'partials'
-  'plugin.cameraRoll'
   'snappi.util'
   'parse.backend'
   'parse.push'
@@ -185,8 +184,10 @@ angular
         return appFacebook.getMeP().then (resp)->
           return 'done'
 
-        
-
+    deviceReady.waitP().then ()->
+      # register installation for Parse Push Notification
+      parsePush.initialize($localStorage).registerP()
+      return
 
 
 

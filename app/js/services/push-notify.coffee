@@ -30,13 +30,13 @@ angular
       'example':
         aps:
           alert: 
-            title: 'Your Order is Ready for Review'
-            body: "You have 91 TopPicks from this order. Have a look now!"
-          badge: null # new picks
+            title: 'Hello There'
+            body: "This is a push notification from Parse!"
+          badge: 1 
           sound: 'default'
-          'content-available': 1
+          'content-available': false
         target: 
-          state: 'app.orders.detail'
+          state: 'app.home'
           params: null
        
     }

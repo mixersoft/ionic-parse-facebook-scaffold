@@ -6,7 +6,7 @@
       </div>
 
       <div class="item">
-        <h1>Home</h1>
+        <h3>Home</h3>
 
         
       </div>
@@ -14,13 +14,28 @@
     </div>
 
     <div class="padding">
-        <button class="button button-block button-positive" ng-click="on.getParseUser()">
+        <button class="button button-block button-balanced" ng-click="on.getParseUser()">
         Get Parse User
         </button>
 
         <button class="button button-block button-positive" ng-click="on.getFbProfile()">
         Get <i class="icon ion-social-facebook">acebook</i> Profile
         </button>
+
+        <div class="card">
+          <div class="item item-divider item-royal">Push Notification</div>
+          <div class="item">
+            <div class="button-bar">
+              <button class="button button-royal" ng-click="on.sendParsePush()">
+                Parse Push
+              </button>
+
+              <button class="button button-royal" ng-click="on.sendIonicPush()">
+                ionic Push
+              </button>
+            </div>
+          </div>
+        </div>
     </div>
 
     <small class="padding">

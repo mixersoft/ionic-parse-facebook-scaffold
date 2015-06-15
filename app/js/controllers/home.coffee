@@ -30,15 +30,22 @@ angular.module('starter')
 
     $scope.on = {
       getParseUser: ()->
-        $scope.watch.console = ''
-        resp = {
-          parseUser: $rootScope.parseUser?.toJSON()
-          user: $rootScope.user
-        }
-        $scope.watch.console = JSON.stringify resp, null, 2
+        $scope.watch.console = 'loading Parse.User...'
+        return new Parse.Query(Parse.User).get($rootScope.parseUser.id)
+        .then (user)->
+            output = {
+              parseUser: user.toJSON()
+              user: $rootScope.user
+            }
+            $scope.watch.console = JSON.stringify output, null, 2
+            $scope.$apply()
+            return
+          , (err)->
+            $scope.watch.console = JSON.stringify err, null, 2
+            return
 
       getFbProfile: ()->
-        $scope.watch.console =''
+        $scope.watch.console = 'loading Facebook profile...'
         return appFacebook.getMeP()
         .then (resp)->
             $scope.watch.console = JSON.stringify resp, null, 2
@@ -46,6 +53,12 @@ angular.module('starter')
           , (err)->
             $scope.watch.console = JSON.stringify err, null, 2
             return
+
+      sendParsePush: ()->
+        $scope.watch.console = 'Parse Push Notification not yet configured'
+
+      sendIonicPush: ()->
+        $scope.watch.console = 'ionic Push Notification not yet configured'
 
 
     }
