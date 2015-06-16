@@ -46,6 +46,8 @@ Be sure to reset app_id="" in ionic.project to upload a *NEW* App
 ```
 ionic upload 
 ```
+WARNING: $ionicDeploy will load the uploaded/deployed image even when the app is launched
+from xcode. To get the latest code from `ionic build ios` for testing, use the `cordova.js` hack in `index.html`. The ionic team is working on a proper solution.
 
 
 ## Add your API Keys 
@@ -68,5 +70,7 @@ ionic build ios
 ionic emulate
 
 ```
+
+
 
 

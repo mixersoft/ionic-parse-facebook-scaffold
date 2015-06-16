@@ -50,6 +50,11 @@ angular
     exportDebug['ionicDeploy'] = ionicDeploy
     return if CHECK_DEPLOYED == false
 
+    # NOTE: $ionicDeploy is still loading the latest deployed image from app.ionic.io
+    # so you won't get the latest code from `ionic build ios`
+    # However, the ionic team is working on a fix to allow DEV deployments.
+    # for now, the `cordova.js` hack in index.html seems to work
+    
     ionicDeploy.check()
     return
 ]
