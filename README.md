@@ -9,6 +9,11 @@ bower install
 npm install 
 # if you need to run as administrator, use `sudo npm install`
 
+# To continue dev in a new git repo 
+git remote rename origin scaffold 
+git remote add origin [github repo]
+git push -u origin master
+
 
 # install Cordova plugins from web
 mkdir hooks   # why is this folder missing?
